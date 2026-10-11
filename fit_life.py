@@ -14,25 +14,45 @@ while True:  # Проверяем корректность ввода возра
         print("Ошибка! Вы ввели текст. Введите только цифры (например, 20).")
 
 
-user_weight = float(input('Укажите ваш вес в килограммах: '))
-user_height = float(input('Укажите ваш рост в метрах (например, 1.80): '))
+# user_weight = float(input('Укажите ваш вес в килограммах: '))
+# user_height = float(input('Укажите ваш рост в метрах (например, 1.80): '))
 
 
-while user_height < 0.5 or user_height > 2.5:  # Проверяем ввод роста в метрах
+while True:  # Проверяем корректность ввода веса(числом)
+    try:
+        user_weight = float(input('Укажите ваш вес в килограммах: '))
+        break
+    except ValueError:
+        print("Ошибка! Вы ввели текст. Введите только цифры (например, 75).")
+
+
+while True:  # Проверяем корректность ввода роста(числом)
+    try:
+        user_height = float(input('Укажите рост в метрах (например, 1.80): '))
+        break
+    except ValueError:
+        print("Ошибка! Вы ввели текст. Введите только цифры (например, 1.80).")
+
+
+while not 0.5 < user_height < 2.5:  # Проверяем ввод роста в метрах
     print("Ошибка: Введен неккоректный рост. Проверьте, что ввели в метрах.")
-    user_height = float(input('Укажите ваш рост в метрах (например, 1.80): '))
+    user_height = float(input('Укажите рост в метрах (например, 1.80): '))
 
 
-bmi = user_weight / (user_height ** 2)  # Рассчет ИМТ
+bmi = round(user_weight / (user_height ** 2), 2)  # Рассчет ИМТ
 
 
-water_ml = user_weight * 30
-water_needed = water_ml / 1000  # Суточный объем воды
+WATER_PER_KG = 30
+ML_PER_LITER = 1000
+
+
+water_ml = user_weight * WATER_PER_KG
+water_needed = round(water_ml / ML_PER_LITER, 2)  # Суточный объем воды
 
 
 print()
 print(f'Приятно познакомиться, {user_name}!\n')
 print(f'Отчет для пользователя: {user_name} ({user_age} г.)')
-print(f'Ваш индекс массы тела: {round(bmi, 1)}')
-print(f'Рекомендуемый суточный объем воды: {round(water_needed, 1)}\n')
+print(f'Ваш индекс массы тела: {bmi}')
+print(f'Рекомендуемый суточный объем воды: {water_needed}\n')
 print("Расчет окончен. Будьте здоровы!")
